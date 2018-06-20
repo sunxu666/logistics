@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.dao.DispatchBillMapper">
+  <resultMap id="BaseResultMap" type="com.ssm.entity.DispatchBill">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="card_number" jdbcType="INTEGER" property="cardNumber" />
+    <result column="ticket_number" jdbcType="INTEGER" property="ticketNumber" />
+    <result column="consigner" jdbcType="VARCHAR" property="consigner" />
+    <result column="consignee" jdbcType="VARCHAR" property="consignee" />
+    <result column="to_stand" jdbcType="VARCHAR" property="toStand" />
+    <result column="consignee_photo" jdbcType="VARCHAR" property="consigneePhoto" />
+    <result column="cargo_name" jdbcType="VARCHAR" property="cargoName" />
+    <result column="packaging" jdbcType="VARCHAR" property="packaging" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="freight" jdbcType="VARCHAR" property="freight" />
+    <result column="weight1" jdbcType="DOUBLE" property="weight1" />
+    <result column="volume" jdbcType="VARCHAR" property="volume" />
+    <result column="clearing_form" jdbcType="VARCHAR" property="clearingForm" />
+    <result column="COD" jdbcType="VARCHAR" property="cod" />
+    <result column="transhipment_charges" jdbcType="VARCHAR" property="transhipmentCharges" />
+    <result column="insurance" jdbcType="VARCHAR" property="insurance" />
+    <result column="premium" jdbcType="VARCHAR" property="premium" />
+    <result column="delivery_expense" jdbcType="VARCHAR" property="deliveryExpense" />
+    <result column="shipping_method" jdbcType="VARCHAR" property="shippingMethod" />
+    <result column="need_receipt" jdbcType="VARCHAR" property="needReceipt" />
+    <result column="refund" jdbcType="VARCHAR" property="refund" />
+    <result column="inetial_station" jdbcType="VARCHAR" property="inetialStation" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="consigner_photo" jdbcType="VARCHAR" property="consignerPhoto" />
+    <result column="transfer_to" jdbcType="VARCHAR" property="transferTo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, card_number, ticket_number, consigner, consignee, to_stand, consignee_photo, 
+    cargo_name, packaging, number, freight, weight1, volume, clearing_form, COD, transhipment_charges, 
+    insurance, premium, delivery_expense, shipping_method, need_receipt, refund, inetial_station, 
+    remark, create_date, consigner_photo, transfer_to
+  </sql>
+  <select id="selectByExample" parameterType="com.ssm.entity.DispatchBillExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dispatch_bill
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dispatch_bill
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dispatch_bill
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ssm.entity.DispatchBillExample">
+    delete from dispatch_bill
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ssm.entity.DispatchBill">
+    insert into dispatch_bill (id, card_number, ticket_number, 
+      consigner, consignee, to_stand, 
+      consignee_photo, cargo_name, packaging, 
+      number, freight, weight1, 
+      volume, clearing_form, COD, 
+      transhipment_charges, insurance, premium, 
+      delivery_expense, shipping_method, need_receipt, 
+      refund, inetial_station, remark, 
+      create_date, consigner_photo, transfer_to
+      )
+    values (#{id,jdbcType=INTEGER}, #{cardNumber,jdbcType=INTEGER}, #{ticketNumber,jdbcType=INTEGER}, 
+      #{consigner,jdbcType=VARCHAR}, #{consignee,jdbcType=VARCHAR}, #{toStand,jdbcType=VARCHAR}, 
+      #{consigneePhoto,jdbcType=VARCHAR}, #{cargoName,jdbcType=VARCHAR}, #{packaging,jdbcType=VARCHAR}, 
+      #{number,jdbcType=INTEGER}, #{freight,jdbcType=VARCHAR}, #{weight1,jdbcType=DOUBLE}, 
+      #{volume,jdbcType=VARCHAR}, #{clearingForm,jdbcType=VARCHAR}, #{cod,jdbcType=VARCHAR}, 
+      #{transhipmentCharges,jdbcType=VARCHAR}, #{insurance,jdbcType=VARCHAR}, #{premium,jdbcType=VARCHAR}, 
+      #{deliveryExpense,jdbcType=VARCHAR}, #{shippingMethod,jdbcType=VARCHAR}, #{needReceipt,jdbcType=VARCHAR}, 
+      #{refund,jdbcType=VARCHAR}, #{inetialStation,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{consignerPhoto,jdbcType=VARCHAR}, #{transferTo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ssm.entity.DispatchBill">
+    insert into dispatch_bill
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cardNumber != null">
+        card_number,
+      </if>
+      <if test="ticketNumber != null">
+        ticket_number,
+      </if>
+      <if test="consigner != null">
+        consigner,
+      </if>
+      <if test="consignee != null">
+        consignee,
+      </if>
+      <if test="toStand != null">
+        to_stand,
+      </if>
+      <if test="consigneePhoto != null">
+        consignee_photo,
+      </if>
+      <if test="cargoName != null">
+        cargo_name,
+      </if>
+      <if test="packaging != null">
+        packaging,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="freight != null">
+        freight,
+      </if>
+      <if test="weight1 != null">
+        weight1,
+      </if>
+      <if test="volume != null">
+        volume,
+      </if>
+      <if test="clearingForm != null">
+        clearing_form,
+      </if>
+      <if test="cod != null">
+        COD,
+      </if>
+      <if test="transhipmentCharges != null">
+        transhipment_charges,
+      </if>
+      <if test="insurance != null">
+        insurance,
+      </if>
+      <if test="premium != null">
+        premium,
+      </if>
+      <if test="deliveryExpense != null">
+        delivery_expense,
+      </if>
+      <if test="shippingMethod != null">
+        shipping_method,
+      </if>
+      <if test="needReceipt != null">
+        need_receipt,
+      </if>
+      <if test="refund != null">
+        refund,
+      </if>
+      <if test="inetialStation != null">
+        inetial_station,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="consignerPhoto != null">
+        consigner_photo,
+      </if>
+      <if test="transferTo != null">
+        transfer_to,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cardNumber != null">
+        #{cardNumber,jdbcType=INTEGER},
+      </if>
+      <if test="ticketNumber != null">
+        #{ticketNumber,jdbcType=INTEGER},
+      </if>
+      <if test="consigner != null">
+        #{consigner,jdbcType=VARCHAR},
+      </if>
+      <if test="consignee != null">
+        #{consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="toStand != null">
+        #{toStand,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneePhoto != null">
+        #{consigneePhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoName != null">
+        #{cargoName,jdbcType=VARCHAR},
+      </if>
+      <if test="packaging != null">
+        #{packaging,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="freight != null">
+        #{freight,jdbcType=VARCHAR},
+      </if>
+      <if test="weight1 != null">
+        #{weight1,jdbcType=DOUBLE},
+      </if>
+      <if test="volume != null">
+        #{volume,jdbcType=VARCHAR},
+      </if>
+      <if test="clearingForm != null">
+        #{clearingForm,jdbcType=VARCHAR},
+      </if>
+      <if test="cod != null">
+        #{cod,jdbcType=VARCHAR},
+      </if>
+      <if test="transhipmentCharges != null">
+        #{transhipmentCharges,jdbcType=VARCHAR},
+      </if>
+      <if test="insurance != null">
+        #{insurance,jdbcType=VARCHAR},
+      </if>
+      <if test="premium != null">
+        #{premium,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryExpense != null">
+        #{deliveryExpense,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingMethod != null">
+        #{shippingMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="needReceipt != null">
+        #{needReceipt,jdbcType=VARCHAR},
+      </if>
+      <if test="refund != null">
+        #{refund,jdbcType=VARCHAR},
+      </if>
+      <if test="inetialStation != null">
+        #{inetialStation,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="consignerPhoto != null">
+        #{consignerPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="transferTo != null">
+        #{transferTo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ssm.entity.DispatchBillExample" resultType="java.lang.Long">
+    select count(*) from dispatch_bill
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dispatch_bill
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.cardNumber != null">
+        card_number = #{record.cardNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.ticketNumber != null">
+        ticket_number = #{record.ticketNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.consigner != null">
+        consigner = #{record.consigner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.consignee != null">
+        consignee = #{record.consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toStand != null">
+        to_stand = #{record.toStand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.consigneePhoto != null">
+        consignee_photo = #{record.consigneePhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cargoName != null">
+        cargo_name = #{record.cargoName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.packaging != null">
+        packaging = #{record.packaging,jdbcType=VARCHAR},
+      </if>
+      <if test="record.number != null">
+        number = #{record.number,jdbcType=INTEGER},
+      </if>
+      <if test="record.freight != null">
+        freight = #{record.freight,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weight1 != null">
+        weight1 = #{record.weight1,jdbcType=DOUBLE},
+      </if>
+      <if test="record.volume != null">
+        volume = #{record.volume,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clearingForm != null">
+        clearing_form = #{record.clearingForm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cod != null">
+        COD = #{record.cod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transhipmentCharges != null">
+        transhipment_charges = #{record.transhipmentCharges,jdbcType=VARCHAR},
+      </if>
+      <if test="record.insurance != null">
+        insurance = #{record.insurance,jdbcType=VARCHAR},
+      </if>
+      <if test="record.premium != null">
+        premium = #{record.premium,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryExpense != null">
+        delivery_expense = #{record.deliveryExpense,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shippingMethod != null">
+        shipping_method = #{record.shippingMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.needReceipt != null">
+        need_receipt = #{record.needReceipt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refund != null">
+        refund = #{record.refund,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inetialStation != null">
+        inetial_station = #{record.inetialStation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.consignerPhoto != null">
+        consigner_photo = #{record.consignerPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transferTo != null">
+        transfer_to = #{record.transferTo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dispatch_bill
+    set id = #{record.id,jdbcType=INTEGER},
+      card_number = #{record.cardNumber,jdbcType=INTEGER},
+      ticket_number = #{record.ticketNumber,jdbcType=INTEGER},
+      consigner = #{record.consigner,jdbcType=VARCHAR},
+      consignee = #{record.consignee,jdbcType=VARCHAR},
+      to_stand = #{record.toStand,jdbcType=VARCHAR},
+      consignee_photo = #{record.consigneePhoto,jdbcType=VARCHAR},
+      cargo_name = #{record.cargoName,jdbcType=VARCHAR},
+      packaging = #{record.packaging,jdbcType=VARCHAR},
+      number = #{record.number,jdbcType=INTEGER},
+      freight = #{record.freight,jdbcType=VARCHAR},
+      weight1 = #{record.weight1,jdbcType=DOUBLE},
+      volume = #{record.volume,jdbcType=VARCHAR},
+      clearing_form = #{record.clearingForm,jdbcType=VARCHAR},
+      COD = #{record.cod,jdbcType=VARCHAR},
+      transhipment_charges = #{record.transhipmentCharges,jdbcType=VARCHAR},
+      insurance = #{record.insurance,jdbcType=VARCHAR},
+      premium = #{record.premium,jdbcType=VARCHAR},
+      delivery_expense = #{record.deliveryExpense,jdbcType=VARCHAR},
+      shipping_method = #{record.shippingMethod,jdbcType=VARCHAR},
+      need_receipt = #{record.needReceipt,jdbcType=VARCHAR},
+      refund = #{record.refund,jdbcType=VARCHAR},
+      inetial_station = #{record.inetialStation,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      consigner_photo = #{record.consignerPhoto,jdbcType=VARCHAR},
+      transfer_to = #{record.transferTo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ssm.entity.DispatchBill">
+    update dispatch_bill
+    <set>
+      <if test="cardNumber != null">
+        card_number = #{cardNumber,jdbcType=INTEGER},
+      </if>
+      <if test="ticketNumber != null">
+        ticket_number = #{ticketNumber,jdbcType=INTEGER},
+      </if>
+      <if test="consigner != null">
+        consigner = #{consigner,jdbcType=VARCHAR},
+      </if>
+      <if test="consignee != null">
+        consignee = #{consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="toStand != null">
+        to_stand = #{toStand,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneePhoto != null">
+        consignee_photo = #{consigneePhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoName != null">
+        cargo_name = #{cargoName,jdbcType=VARCHAR},
+      </if>
+      <if test="packaging != null">
+        packaging = #{packaging,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="freight != null">
+        freight = #{freight,jdbcType=VARCHAR},
+      </if>
+      <if test="weight1 != null">
+        weight1 = #{weight1,jdbcType=DOUBLE},
+      </if>
+      <if test="volume != null">
+        volume = #{volume,jdbcType=VARCHAR},
+      </if>
+      <if test="clearingForm != null">
+        clearing_form = #{clearingForm,jdbcType=VARCHAR},
+      </if>
+      <if test="cod != null">
+        COD = #{cod,jdbcType=VARCHAR},
+      </if>
+      <if test="transhipmentCharges != null">
+        transhipment_charges = #{transhipmentCharges,jdbcType=VARCHAR},
+      </if>
+      <if test="insurance != null">
+        insurance = #{insurance,jdbcType=VARCHAR},
+      </if>
+      <if test="premium != null">
+        premium = #{premium,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryExpense != null">
+        delivery_expense = #{deliveryExpense,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingMethod != null">
+        shipping_method = #{shippingMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="needReceipt != null">
+        need_receipt = #{needReceipt,jdbcType=VARCHAR},
+      </if>
+      <if test="refund != null">
+        refund = #{refund,jdbcType=VARCHAR},
+      </if>
+      <if test="inetialStation != null">
+        inetial_station = #{inetialStation,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="consignerPhoto != null">
+        consigner_photo = #{consignerPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="transferTo != null">
+        transfer_to = #{transferTo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ssm.entity.DispatchBill">
+    update dispatch_bill
+    set card_number = #{cardNumber,jdbcType=INTEGER},
+      ticket_number = #{ticketNumber,jdbcType=INTEGER},
+      consigner = #{consigner,jdbcType=VARCHAR},
+      consignee = #{consignee,jdbcType=VARCHAR},
+      to_stand = #{toStand,jdbcType=VARCHAR},
+      consignee_photo = #{consigneePhoto,jdbcType=VARCHAR},
+      cargo_name = #{cargoName,jdbcType=VARCHAR},
+      packaging = #{packaging,jdbcType=VARCHAR},
+      number = #{number,jdbcType=INTEGER},
+      freight = #{freight,jdbcType=VARCHAR},
+      weight1 = #{weight1,jdbcType=DOUBLE},
+      volume = #{volume,jdbcType=VARCHAR},
+      clearing_form = #{clearingForm,jdbcType=VARCHAR},
+      COD = #{cod,jdbcType=VARCHAR},
+      transhipment_charges = #{transhipmentCharges,jdbcType=VARCHAR},
+      insurance = #{insurance,jdbcType=VARCHAR},
+      premium = #{premium,jdbcType=VARCHAR},
+      delivery_expense = #{deliveryExpense,jdbcType=VARCHAR},
+      shipping_method = #{shippingMethod,jdbcType=VARCHAR},
+      need_receipt = #{needReceipt,jdbcType=VARCHAR},
+      refund = #{refund,jdbcType=VARCHAR},
+      inetial_station = #{inetialStation,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      consigner_photo = #{consignerPhoto,jdbcType=VARCHAR},
+      transfer_to = #{transferTo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

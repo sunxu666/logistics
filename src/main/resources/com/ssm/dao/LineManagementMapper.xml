@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.dao.LineManagementMapper">
+  <resultMap id="BaseResultMap" type="com.ssm.entity.LineManagement">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="abbreviation" jdbcType="VARCHAR" property="abbreviation" />
+    <result column="contacts" jdbcType="VARCHAR" property="contacts" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="total_proportion" jdbcType="VARCHAR" property="totalProportion" />
+    <result column="branch_proportion" jdbcType="VARCHAR" property="branchProportion" />
+    <result column="return_total_proportion" jdbcType="VARCHAR" property="returnTotalProportion" />
+    <result column="return_branch_proportion" jdbcType="VARCHAR" property="returnBranchProportion" />
+    <result column="proportion1" jdbcType="VARCHAR" property="proportion1" />
+    <result column="proportion2" jdbcType="VARCHAR" property="proportion2" />
+    <result column="unit_price" jdbcType="VARCHAR" property="unitPrice" />
+    <result column="unit_price2" jdbcType="VARCHAR" property="unitPrice2" />
+    <result column="starting_fare" jdbcType="VARCHAR" property="startingFare" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, city, abbreviation, contacts, photo, total_proportion, branch_proportion, return_total_proportion, 
+    return_branch_proportion, proportion1, proportion2, unit_price, unit_price2, starting_fare
+  </sql>
+  <select id="selectByExample" parameterType="com.ssm.entity.LineManagementExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from line_management
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from line_management
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from line_management
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ssm.entity.LineManagementExample">
+    delete from line_management
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ssm.entity.LineManagement">
+    insert into line_management (id, city, abbreviation, 
+      contacts, photo, total_proportion, 
+      branch_proportion, return_total_proportion, 
+      return_branch_proportion, proportion1, proportion2, 
+      unit_price, unit_price2, starting_fare
+      )
+    values (#{id,jdbcType=INTEGER}, #{city,jdbcType=VARCHAR}, #{abbreviation,jdbcType=VARCHAR}, 
+      #{contacts,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, #{totalProportion,jdbcType=VARCHAR}, 
+      #{branchProportion,jdbcType=VARCHAR}, #{returnTotalProportion,jdbcType=VARCHAR}, 
+      #{returnBranchProportion,jdbcType=VARCHAR}, #{proportion1,jdbcType=VARCHAR}, #{proportion2,jdbcType=VARCHAR}, 
+      #{unitPrice,jdbcType=VARCHAR}, #{unitPrice2,jdbcType=VARCHAR}, #{startingFare,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ssm.entity.LineManagement">
+    insert into line_management
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="abbreviation != null">
+        abbreviation,
+      </if>
+      <if test="contacts != null">
+        contacts,
+      </if>
+      <if test="photo != null">
+        photo,
+      </if>
+      <if test="totalProportion != null">
+        total_proportion,
+      </if>
+      <if test="branchProportion != null">
+        branch_proportion,
+      </if>
+      <if test="returnTotalProportion != null">
+        return_total_proportion,
+      </if>
+      <if test="returnBranchProportion != null">
+        return_branch_proportion,
+      </if>
+      <if test="proportion1 != null">
+        proportion1,
+      </if>
+      <if test="proportion2 != null">
+        proportion2,
+      </if>
+      <if test="unitPrice != null">
+        unit_price,
+      </if>
+      <if test="unitPrice2 != null">
+        unit_price2,
+      </if>
+      <if test="startingFare != null">
+        starting_fare,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="abbreviation != null">
+        #{abbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null">
+        #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="totalProportion != null">
+        #{totalProportion,jdbcType=VARCHAR},
+      </if>
+      <if test="branchProportion != null">
+        #{branchProportion,jdbcType=VARCHAR},
+      </if>
+      <if test="returnTotalProportion != null">
+        #{returnTotalProportion,jdbcType=VARCHAR},
+      </if>
+      <if test="returnBranchProportion != null">
+        #{returnBranchProportion,jdbcType=VARCHAR},
+      </if>
+      <if test="proportion1 != null">
+        #{proportion1,jdbcType=VARCHAR},
+      </if>
+      <if test="proportion2 != null">
+        #{proportion2,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null">
+        #{unitPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice2 != null">
+        #{unitPrice2,jdbcType=VARCHAR},
+      </if>
+      <if test="startingFare != null">
+        #{startingFare,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ssm.entity.LineManagementExample" resultType="java.lang.Long">
+    select count(*) from line_management
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update line_management
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.city != null">
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.abbreviation != null">
+        abbreviation = #{record.abbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contacts != null">
+        contacts = #{record.contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photo != null">
+        photo = #{record.photo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalProportion != null">
+        total_proportion = #{record.totalProportion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.branchProportion != null">
+        branch_proportion = #{record.branchProportion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.returnTotalProportion != null">
+        return_total_proportion = #{record.returnTotalProportion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.returnBranchProportion != null">
+        return_branch_proportion = #{record.returnBranchProportion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proportion1 != null">
+        proportion1 = #{record.proportion1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proportion2 != null">
+        proportion2 = #{record.proportion2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitPrice != null">
+        unit_price = #{record.unitPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitPrice2 != null">
+        unit_price2 = #{record.unitPrice2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startingFare != null">
+        starting_fare = #{record.startingFare,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update line_management
+    set id = #{record.id,jdbcType=INTEGER},
+      city = #{record.city,jdbcType=VARCHAR},
+      abbreviation = #{record.abbreviation,jdbcType=VARCHAR},
+      contacts = #{record.contacts,jdbcType=VARCHAR},
+      photo = #{record.photo,jdbcType=VARCHAR},
+      total_proportion = #{record.totalProportion,jdbcType=VARCHAR},
+      branch_proportion = #{record.branchProportion,jdbcType=VARCHAR},
+      return_total_proportion = #{record.returnTotalProportion,jdbcType=VARCHAR},
+      return_branch_proportion = #{record.returnBranchProportion,jdbcType=VARCHAR},
+      proportion1 = #{record.proportion1,jdbcType=VARCHAR},
+      proportion2 = #{record.proportion2,jdbcType=VARCHAR},
+      unit_price = #{record.unitPrice,jdbcType=VARCHAR},
+      unit_price2 = #{record.unitPrice2,jdbcType=VARCHAR},
+      starting_fare = #{record.startingFare,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ssm.entity.LineManagement">
+    update line_management
+    <set>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="abbreviation != null">
+        abbreviation = #{abbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null">
+        contacts = #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="totalProportion != null">
+        total_proportion = #{totalProportion,jdbcType=VARCHAR},
+      </if>
+      <if test="branchProportion != null">
+        branch_proportion = #{branchProportion,jdbcType=VARCHAR},
+      </if>
+      <if test="returnTotalProportion != null">
+        return_total_proportion = #{returnTotalProportion,jdbcType=VARCHAR},
+      </if>
+      <if test="returnBranchProportion != null">
+        return_branch_proportion = #{returnBranchProportion,jdbcType=VARCHAR},
+      </if>
+      <if test="proportion1 != null">
+        proportion1 = #{proportion1,jdbcType=VARCHAR},
+      </if>
+      <if test="proportion2 != null">
+        proportion2 = #{proportion2,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null">
+        unit_price = #{unitPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice2 != null">
+        unit_price2 = #{unitPrice2,jdbcType=VARCHAR},
+      </if>
+      <if test="startingFare != null">
+        starting_fare = #{startingFare,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ssm.entity.LineManagement">
+    update line_management
+    set city = #{city,jdbcType=VARCHAR},
+      abbreviation = #{abbreviation,jdbcType=VARCHAR},
+      contacts = #{contacts,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=VARCHAR},
+      total_proportion = #{totalProportion,jdbcType=VARCHAR},
+      branch_proportion = #{branchProportion,jdbcType=VARCHAR},
+      return_total_proportion = #{returnTotalProportion,jdbcType=VARCHAR},
+      return_branch_proportion = #{returnBranchProportion,jdbcType=VARCHAR},
+      proportion1 = #{proportion1,jdbcType=VARCHAR},
+      proportion2 = #{proportion2,jdbcType=VARCHAR},
+      unit_price = #{unitPrice,jdbcType=VARCHAR},
+      unit_price2 = #{unitPrice2,jdbcType=VARCHAR},
+      starting_fare = #{startingFare,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
